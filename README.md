@@ -5,6 +5,7 @@ The python program 'scripts.py' will take an excel spreadhseet as input and stor
 1. Player Names
 2. Player's number of weeks attended
 3. Player's weekly score
+   
 We will then use this information to calculate each player's:
 1. Average of best 5 weeks
 2. Total weekly average
