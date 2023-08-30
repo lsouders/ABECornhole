@@ -27,9 +27,34 @@ while read == False:
 # Get the players
 # print(df[["Players"]])
 
+week_number = 0 # will store what week it currently is
 # Attempt to cycle through and print each player
 for index in df.index:
-    print("Player: ", df.loc[index, "Players"])
+    #print("Player: ", df.loc[index, "Players"])
     # Get the stats for each player
-    for i in range(df.loc[index, "Weeks Attended"]):
-        print("week", i+1, ":", df.iloc[index, i+2]) 
+    stats = []
+    weeks_attended = int(df.loc[index, "Weeks Attended"])
+    if weeks_attended > week_number:
+        week_number  = weeks_attended
+    for i in range(weeks_attended):
+        stats.append(int(df.iloc[index, i+2]))
+    # calculate weekly average, then average of best 5.
+    stats.sort(reverse=True)
+    sum = weekly_avg = best_avg = 0
+    for i in range(weeks_attended):
+        sum += stats[i]
+        if i <= 4:
+            best_avg = sum
+    weekly_avg = sum // weeks_attended
+    if weeks_attended > 5:
+        best_avg //= 5
+    else:
+        best_avg //= weeks_attended 
+    # print("Weekly:", weekly_avg, ", best 5:", best_avg)
+    # Add the data to the proper column
+    df.loc[index, "Weekly Average"] = weekly_avg
+    df.loc[index, "Best 5 Weeks Avg"] = best_avg
+
+print(df)
+output_str = "Week" +str(week_number) + "Results.xlsx"
+df.to_excel(output_str)
