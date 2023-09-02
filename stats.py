@@ -55,6 +55,8 @@ for index in df.index:
     df.loc[index, "Weekly Average"] = weekly_avg
     df.loc[index, "Best 5 Weeks Avg"] = best_avg
 
-print(df)
+# not sorting for some reason?
+sorted_df = df.sort_values(by=["Best 5 Weeks Avg"], ascending=False)
+print(sorted_df)
 output_str = "Week" +str(week_number) + "Results.xlsx"
-df.to_excel(output_str)
+sorted_df.to_excel(output_str)
