@@ -37,7 +37,7 @@ for index in df.index:
     if weeks_attended > week_number:
         week_number  = weeks_attended
     for i in range(weeks_attended):
-        stats.append(int(df.iloc[index, i+2]))
+        stats.append(int(df.iloc[index, i+4])) # have to offset by 4 to account for avg's and week count infront of the weekly scores.
     # calculate weekly average, then average of best 5.
     stats.sort(reverse=True)
     sum = weekly_avg = best_avg = 0
