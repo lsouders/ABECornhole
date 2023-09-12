@@ -27,15 +27,18 @@ while read == False:
 # Get the players
 # print(df[["Players"]])
 
-week_number = 0 # will store what week it currently is
+
+# replace all NaN with 0
+df.fillna(0, inplace=True)
+# get the current week
+week_number = int(df[['Weeks Attended']].max()[0])
 # Attempt to cycle through and print each player
 for index in df.index:
     #print("Player: ", df.loc[index, "Players"])
     # Get the stats for each player
     stats = []
     weeks_attended = int(df.loc[index, "Weeks Attended"])
-    if weeks_attended > week_number:
-        week_number  = weeks_attended
+    if weeks_attended == 0: continue # no calculations to be made
     for i in range(weeks_attended):
         stats.append(int(df.iloc[index, i+4])) # have to offset by 4 to account for avg's and week count infront of the weekly scores.
     # calculate weekly average, then average of best 5.
@@ -50,13 +53,14 @@ for index in df.index:
         best_avg //= 5
     else:
         best_avg //= weeks_attended 
-    # print("Weekly:", weekly_avg, ", best 5:", best_avg)
     # Add the data to the proper column
-    df.loc[index, "Weekly Average"] = weekly_avg
+    df.loc[index, "Weekly Avg"] = weekly_avg
     df.loc[index, "Best 5 Weeks Avg"] = best_avg
 
 # not sorting for some reason?
 sorted_df = df.sort_values(by=["Best 5 Weeks Avg"], ascending=False)
+sorted_df.reset_index(inplace=True, drop=True)
+sorted_df.index += 1
 print(sorted_df)
 output_str = "Week" +str(week_number) + "Results.xlsx"
 sorted_df.to_excel(output_str)
