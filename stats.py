@@ -47,14 +47,15 @@ for index in df.index:
         sum += stats[i]
         if i <= 4:
             best_avg = sum
-    weekly_avg = sum // weeks_attended
+    if weeks_attended == 0: continue
+    weekly_avg = sum / weeks_attended
     if weeks_attended > 5:
-        best_avg //= 5
+        best_avg /= 5
     else:
-        best_avg //= weeks_attended 
+        best_avg /= weeks_attended 
     # Add the data to the proper column
-    df.loc[index, "Weekly Avg"] = weekly_avg
-    df.loc[index, "Best 5 Weeks Avg"] = best_avg
+    df.loc[index, "Weekly Avg"] = round(weekly_avg, 1)
+    df.loc[index, "Best 5 Weeks Avg"] = round(best_avg, 1)
     df.loc[index, "Weeks Attended"] = weeks_attended
 
 # get the current week
