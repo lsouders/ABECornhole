@@ -22,18 +22,10 @@ while read == False:
     except FileNotFoundError:
         print("File not found, please enter the correct name of the file.")
 
-# print out the DataFrame (for testing purposes only)
-# print(df)
-
-# Get the players
-# print(df[["Players"]])
-
-
 # replace all NaN with 0
 df.fillna(0, inplace=True)
 # Attempt to cycle through and print each player
 for index in df.index:
-    #print("Player: ", df.loc[index, "Players"])
     # Get the stats for each player
     stats = []
     weeks_attended = 0
@@ -42,12 +34,13 @@ for index in df.index:
         if stats[i] != 0: weeks_attended += 1  # This is how we will count each player's total weeks attended.
     # calculate weekly average, then average of best 5.
     stats.sort(reverse=True)
-    sum = weekly_avg = best_avg = 0
+    sum = weekly_avg = best_avg = 0.
+    if weeks_attended == 0: continue
     for i in range(weeks_attended):
         sum += stats[i]
         if i <= 4:
             best_avg = sum
-    if weeks_attended == 0: continue
+    # if weeks_attended == 0: continue
     weekly_avg = sum / weeks_attended
     if weeks_attended > 5:
         best_avg /= 5
@@ -61,7 +54,7 @@ for index in df.index:
 # get the current week
 week_number = int(df[['Weeks Attended']].max()[0])
 # sort and export the results
-sorted_df = df.sort_values(by=["Best 5 Weeks Avg"], ascending=False)
+sorted_df = df.sort_values(by=["Best 5 Weeks Avg", "Weekly Avg"], ascending=[False, False])
 sorted_df.reset_index(inplace=True, drop=True)
 sorted_df.index += 1
 print(sorted_df)
