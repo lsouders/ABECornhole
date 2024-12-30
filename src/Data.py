@@ -1,6 +1,7 @@
 import pandas as pd
 from Players import Players as p
 from Alias import Alias as a
+import matplotlib.pyplot as plt
 
 class Data:
 
@@ -64,3 +65,64 @@ class Data:
         main.reset_index(drop=True, inplace=True)
         # print(main)
         Data.storeData(main, 'main.csv')
+
+    def read_a_week(season, week, sort_num):
+        df = pd.read_csv('data/data.csv')
+        df = Data.cleanData(df)
+        df['Week'] = week
+        df['Season'] = season
+        df['Season Sort'] = sort_num
+        Data.storeData(df, 'main.csv')
+
+    def graph(player_name, option='Player PPR', season='all'):
+        df, _ = Data.getData()
+        player_df = df[df['PlayerName'] == player_name]
+        # Filter out a season if specified
+        if season != 'all':
+            player_df = player_df[player_df['Season'] == season]
+        # Sort the data for graphing
+        df = player_df.sort_values(by=['Season', 'Week'])
+        if season == 'all': x_vals = list( range(1, len(df)+1) )
+        else: x_vals = df['Week'].values
+        plt.plot(x_vals, df[option])
+        plt.xlabel('Week')
+        plt.ylabel(option)
+        plt.title(f'{player_name} {option} Stats for Season: {season}')
+        plt.show()
+
+    def get_stats(player_name, season='all'):
+        df, _ = Data.getData()
+        player_df = df[df['PlayerName'] == player_name]
+        if season != 'all': player_df = player_df[player_df['Season'] == season]
+        stats = {'Total Rounds': 0, 'Total Bags': 0, 'Total Points': 0, 'Total Opp Points': 0, 'Player PPR': 0, 'Opponent PPR': 0, '4in Total': 0, '4in PCT': 0, 'Total In': 0, 'In PCT': 0, 'Total On': 0, 'On PCT': 0, 'Total Off': 0, 'Off PCT': 0}
+        # Total Rounds
+        stats['Total Rounds'] = player_df['Rounds'].sum()
+        # Total Bags
+        stats['Total Bags'] = player_df['Bags'].sum()
+        # Total Points
+        stats['Total Points'] = player_df['Total Points'].sum()
+        # Total Opp Points
+        stats['Total Opp Points'] = player_df['Total Opp Points'].sum()
+        # Player PPR
+        stats['Player PPR'] = round( stats['Total Points'] / stats['Total Rounds'], 2 )
+        # Opponent PPR
+        stats['Opponent PPR'] = round( stats['Total Opp Points'] / stats['Total Rounds'], 2 )
+        # 4in Total
+        stats['4in Total'] = player_df['4In Count'].sum()
+        # 4in PCT
+        stats['4in PCT'] = round( stats['4in Total'] / stats['Total Rounds'], 3) * 100
+        # Total In
+        stats['Total In'] = player_df['In Count'].sum()
+        # In PCT
+        stats['In PCT'] = round( stats['Total In'] / stats['Total Bags'], 3) * 100
+        # Total On (is bags in included in on??)
+        stats['Total On'] = player_df['On Count'].sum()
+        # On PCT
+        stats['On PCT'] = round( stats['Total On'] / stats['Total Bags'], 3) * 100
+        # Total Off
+        stats['Total Off'] = player_df['Off Count'].sum()
+        # Off PCT
+        stats['Off PCT'] = round( stats['Total Off'] / stats['Total Bags'], 3) * 100
+        
+        results_df = pd.DataFrame(data=stats, index=[0])
+        print(results_df)
