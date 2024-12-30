@@ -14,7 +14,7 @@ We will then use this information to calculate each player's:
 2. Total weekly average
 Once these calculations are complete, players will be sorted by their average of their best 5 weeks, and exported to an excel file. 
 
-We will have a main datasheet that stores each person's score for each week. We will then dump results into a file each week that contains the above mentioned information. 
+We will have a main datasheet that stores each person's score for each week. We will then dump results into a file each week that contains the above mentioned information. Currently this is all being run out of google colab.
 
 ### Data Stuff
 The second project in this repository is a data viewing application. Its intention is to eventually allow users to visually view their performance across a season or all seasons. There are various forms of data that users can view. They will be written up below.
