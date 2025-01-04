@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 # Define Constants
 CURR_SEASON = 'Winter25'
-CURR_SEASON_MAIN_FILE = 'WinterLeague25\\ABE Cornhole - Winter League.csv'
+CURR_SEASON_MAIN_FILE = f'WinterLeague25\\{CURR_SEASON}Main.csv'
 INPUT_FILE = 'input.csv'
 
 print(f"Options for the program currently are: \n\tStats\n\tGraph\n\tReadWeek\n\tquit\n")
@@ -28,7 +28,7 @@ while True:
         case 'ReadWeek':
             main = pd.read_csv(CURR_SEASON_MAIN_FILE)
             main.fillna(0, inplace=True)
-
+            input = pd.read_csv('input.csv')
             # Read results into the dataframe. Use functionality from stats.py to make computations.
             # Can bring in functions from stats into its own file in src. Don't modify stats in main 
             # directory as it currently does what we need it to. input.csv will be the name of the weekly

@@ -3,12 +3,12 @@ import pandas as pd
 class Players:
 
     @staticmethod
-    def get_players():
+    def get_players() -> pd.DataFrame:
         df = pd.read_csv('data/Players.csv')
         return df
     
     @staticmethod
-    def add_player(name):
+    def add_player(name: str) -> int:
         df = Players.get_players()
         index = df['Index'].max() + 1
         new_row = pd.DataFrame({'Name': [name], 'Index': [index]})
@@ -17,18 +17,13 @@ class Players:
         return index
     
     @staticmethod
-    def get_player(name):
+    def get_player(name) -> int:
         df = Players.get_players()
         index = df[df['Name'] == name]
         return index.iloc[0, 1] if len(index) > 0 else -1
-  
-# df = Players.get_players()
-# print(df.head())
-
-# players = pd.read_csv("ABE Cornhole - Spring League.csv")
-# players = players[['Players']]
-# players.dropna(subset=['Players'], inplace=True)
-# players['Index'] = range(1, len(players)+1)
-# players.rename(columns={'Players': 'Name'}, inplace=True)
-# print(players[['Name', 'Index']].head())
-# players.to_csv('data/Players.csv', index=False)
+    
+    @staticmethod
+    def get_player_by_index(index: int) -> str:
+        df = Players.get_players()
+        name = df[df['Index'] == index]
+        return name.iloc[0, 0] if len(name) > 0 else ''

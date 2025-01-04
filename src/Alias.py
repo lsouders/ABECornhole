@@ -9,7 +9,7 @@ class Alias:
         return df
     
     @staticmethod
-    def add_alias(player_name, index):
+    def add_alias(player_name: str, index: int):
         df = Alias.get_alias()
         new_row = pd.DataFrame({'Alias': [player_name], 'Index': [index]})
         df = pd.concat([df, new_row], ignore_index=True)
