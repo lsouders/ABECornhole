@@ -1,5 +1,7 @@
 data/inputs/
 src/__pycache__/
-WinterLeague24/
-SpringLeague24/
-FallLeague23/
+Winter24/
+Spring24/
+Fall23/
+Test/
+src/Test.py

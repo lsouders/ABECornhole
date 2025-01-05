@@ -20,7 +20,7 @@ class Players:
     def get_player(name) -> int:
         df = Players.get_players()
         index = df[df['Name'] == name]
-        return index.iloc[0, 1] if len(index) > 0 else -1
+        return int(index.iloc[0, 1]) if len(index) > 0 else -1
     
     @staticmethod
     def get_player_by_index(index: int) -> str:

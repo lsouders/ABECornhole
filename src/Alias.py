@@ -17,10 +17,17 @@ class Alias:
     
     # Find a known alias for a given player (returns the index of that player)
     @staticmethod
-    def find_alias(player_name):
+    def get_alias_by_name(player_name):
         df = Alias.get_alias()
         index = df[df['Alias'] == player_name]
         return index.iloc[0, 1] if len(index) > 0 else -1 
+    
+    # Find a known alias for a given player (returns the Alias of that player)
+    @staticmethod
+    def get_alias_by_index(index) -> pd.DataFrame:
+        df = Alias.get_alias()
+        name = df[df['Index'] == index]
+        return name if len(name) > 0 else -1 
     
     # Replace aliases with true names in dataframe that we plan to join to
     # the main dataframe.
@@ -32,7 +39,7 @@ class Alias:
         # Iterate over the df that we are cleaning
         for row in df.index:
             player_name = df.loc[row, 'PlayerName']
-            known_alias = Alias.find_alias(player_name)
+            known_alias = Alias.get_alias_by_name(player_name)
             # Alias does not exist, must add alias and possibly player
             if known_alias == -1:
                 true_name = input(f'No alias found. Who is {player_name}?\nName: ')
