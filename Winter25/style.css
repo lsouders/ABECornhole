@@ -25,7 +25,7 @@ th {
 }
 table:after {
     content: "";
-    background: url('../images/logo.png');
+    background: url('../images/logo.jpg');
     background-repeat: no-repeat;
     /* background-size: contain;  */
     background-size: 100% 100%;
