@@ -4,15 +4,51 @@
 import pandas as pd
 from Alias import Alias
 from Players import Players
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, PageBreak
+from reportlab.lib.pagesizes import letter, landscape
+from reportlab.lib import colors
+from reportlab.pdfgen import canvas
+from reportlab.lib.utils import ImageReader
 
 SEASON = 'Winter25'
 MAIN_SEASON_FILE = f'{SEASON}\\{SEASON}Main.csv'
 INPUT_FILE = 'input.csv'
+LOGO = 'images\\logo.png'
+
 # SEASON = 'Winter25'
 # MAIN_SEASON_FILE = f'Test\\main.csv'
 # INPUT_FILE = 'input.csv'
 
 class Results:
+
+    @staticmethod
+    def create_html(df: pd.DataFrame, out_filename: str):
+        # Export DataFrame to HTML
+        html_table = df.to_html(index=False)  # Export DataFrame without index
+
+        # Background image file path
+        background_image = LOGO
+
+        # Combine HTML with CSS for styling
+        html_content = f"""
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>DataFrame Overlay</title>
+            <link rel="stylesheet" href="style.css">
+        </head>
+        <body>
+            <h1>Winter 2025</h1>
+            {html_table}
+        </body>
+        </html>
+        """
+        # Save the combined content to an HTML file
+        with open(f"{out_filename}.html", "w") as file:
+            file.write(html_content)
+        return
 
     @staticmethod
     def read_files(inp_name: str):
@@ -60,31 +96,35 @@ class Results:
             weekly_avg, best5_avg = Results.get_averages(data, weeks_attended)
             main.loc[main['Player'] == name, 'Weekly Avg'] = weekly_avg
             main.loc[main['Player'] == name, 'Best 5 Weeks Avg'] = best5_avg
+        main.sort_values(by=['Best 5 Weeks Avg', 'Weekly Avg'], ascending=False)
         return main, week_num
     
 
     # Take df input to write out to results file
     @staticmethod
     def write_results(df: pd.DataFrame, filename: str):
+        # reformat indexing to give current 'place' people are in
+        df.reset_index(inplace=True, drop=True)
+        df.index += 1 
         df.to_csv(filename, index=False)
         return 
     
     # Main method for updating results for a week
     @staticmethod
-    def update_results(file):
-        main, input = Results.read_files()
+    def update_results(inp_file: str):
+        main, input = Results.read_files(inp_file)
         results, week_num = Results.get_results(main, input)
         Results.write_results(results, f'{SEASON}\\Week{week_num}Results.xlsx') # xlsx for upload to google drive. Will delete after season
         Results.write_results(results, f'{SEASON}\\Week{week_num}Results.csv')  # csv for data wrangling (application uses csv)
         Results.write_results(results, MAIN_SEASON_FILE)
-        return 1
+        Results.create_html(results, f'{SEASON}\\Week{week_num}Results')
+        return
 
-# main, inp = Results.read_files(f'Test\\input{2}.csv')
-# main = Results.get_results(main, inp)
-# for i in range(3, 11):
-#     _, inp = Results.read_files(f'Test\\input{i}.csv')
-#     main = Results.get_results(main, inp)
-# # main, _ = Results.read_files(f'Test\\input{i}.csv')
-# print("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
-# print(main.sort_values(by=['Best 5 Weeks Avg', 'Weekly Avg'], ascending=False))
-# main.to_csv('main.xlsx', index=False)
+# Results.update_results(INPUT_FILE)
+
+#=======================================
+# CODE TO RESET MAIN FILE
+# main = pd.read_csv(MAIN_SEASON_FILE)
+# main.loc[:, 'Best 5 Weeks Avg' : 'Week 10'] = 0
+# main.to_csv(MAIN_SEASON_FILE, index=False)
+#=======================================
