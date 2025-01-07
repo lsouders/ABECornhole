@@ -5,10 +5,10 @@ from Results import Results as R
 
 # Define Constants
 CURR_SEASON = 'Winter25'
-CURR_SEASON_MAIN_FILE = f'WinterLeague25\\{CURR_SEASON}Main.csv'
+CURR_SEASON_MAIN_FILE = f'Winter25\\{CURR_SEASON}Main.csv'
 INPUT_FILE = 'input.csv'
 
-print(f"Options for the program currently are: \n\tStats\n\tGraph\n\tReadWeek\n\tquit\n")
+print(f"Options for the program currently are: \n\tStats\n\tGraph\n\tReadWeek\n\tWriteResults\n\tquit\n")
 
 # main program loop
 while True:
@@ -28,5 +28,8 @@ while True:
             D.get_stats(name, season)
         case 'ReadWeek':
             R.update_results(INPUT_FILE)
+        case 'WriteResults':
+            filename = input('File to write to main: ')
+            R.write_results_to_main(f'{CURR_SEASON}\\{filename}')
         case 'quit':
             break

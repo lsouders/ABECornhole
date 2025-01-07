@@ -78,9 +78,9 @@ class Results:
             if p_ind == -1:
                 a_ind  = Alias.get_alias_by_name(player)
                 if a_ind == -1:
-                    print('No Alias')
+                    print(f'Alias not found for {player}.')
                     name = input('Enter new player\'s name: ')
-                    new_ind = Players.add_player(name)
+                    new_ind = Players.get_player(name)
                     Alias.add_alias(player, new_ind)
                 else:
                     name = Players.get_player_by_index(a_ind)
@@ -96,7 +96,7 @@ class Results:
             weekly_avg, best5_avg = Results.get_averages(data, weeks_attended)
             main.loc[main['Player'] == name, 'Weekly Avg'] = weekly_avg
             main.loc[main['Player'] == name, 'Best 5 Weeks Avg'] = best5_avg
-        main.sort_values(by=['Best 5 Weeks Avg', 'Weekly Avg'], ascending=False)
+        main.sort_values(by=['Best 5 Weeks Avg', 'Weekly Avg'], inplace=True, ascending=False)
         return main, week_num
     
 
@@ -109,6 +109,14 @@ class Results:
         df.to_csv(filename, index=False)
         return 
     
+
+    # Write out the verified results to the main file
+    @staticmethod
+    def write_results_to_main(filename: str):
+        results = pd.read_csv(filename)
+        Results.write_results(results, MAIN_SEASON_FILE)
+    
+
     # Main method for updating results for a week
     @staticmethod
     def update_results(inp_file: str):
@@ -116,7 +124,6 @@ class Results:
         results, week_num = Results.get_results(main, input)
         Results.write_results(results, f'{SEASON}\\Week{week_num}Results.xlsx') # xlsx for upload to google drive. Will delete after season
         Results.write_results(results, f'{SEASON}\\Week{week_num}Results.csv')  # csv for data wrangling (application uses csv)
-        Results.write_results(results, MAIN_SEASON_FILE)
         Results.create_html(results, f'{SEASON}\\Week{week_num}Results')
         return
 
