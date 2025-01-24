@@ -24,7 +24,10 @@ class Results:
     @staticmethod
     def create_html(df: pd.DataFrame, out_filename: str):
         # Export DataFrame to HTML
-        html_table = df.to_html(index=False)  # Export DataFrame without index
+        # reformat indexing to give current 'place' people are in
+        df.reset_index(inplace=True, drop=True)
+        df.index += 1 
+        html_table = df.to_html()  # Export DataFrame without index
 
         # Background image file path
         background_image = LOGO
@@ -103,9 +106,6 @@ class Results:
     # Take df input to write out to results file
     @staticmethod
     def write_results(df: pd.DataFrame, filename: str):
-        # reformat indexing to give current 'place' people are in
-        df.reset_index(inplace=True, drop=True)
-        df.index += 1 
         df.to_csv(filename, index=False)
         return 
     
