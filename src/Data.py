@@ -66,12 +66,12 @@ class Data:
         # print(main)
         Data.storeData(main, 'main.csv')
 
-    def read_a_week(season, week, sort_num):
-        df = pd.read_csv('data/data.csv')
+    def read_data(filename, season, week, season_sort=4):
+        df = pd.read_csv(filename)
         df = Data.cleanData(df)
         df['Week'] = week
         df['Season'] = season
-        df['Season Sort'] = sort_num
+        df['Season Sort'] = season_sort
         Data.storeData(df, 'main.csv')
 
     def graph(player_name, option='Player PPR', season='all'):
