@@ -10,7 +10,7 @@ from reportlab.lib import colors
 from reportlab.pdfgen import canvas
 from reportlab.lib.utils import ImageReader
 
-SEASON = 'Winter25'
+SEASON = 'Spring25'
 MAIN_SEASON_FILE = f'{SEASON}\\{SEASON}Main.csv'
 INPUT_FILE = 'input.csv'
 LOGO = 'images\\logo.png'
@@ -43,7 +43,7 @@ class Results:
             <link rel="stylesheet" href="style.css">
         </head>
         <body>
-            <h1>Winter 2025</h1>
+            <h1>Spring 2025</h1>
             {html_table}
         </body>
         </html>

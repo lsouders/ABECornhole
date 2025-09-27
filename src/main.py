@@ -4,8 +4,8 @@ from Data import Data as D
 from Results import Results as R
 
 # Define Constants
-CURR_SEASON = 'Winter25'
-CURR_SEASON_MAIN_FILE = f'Winter25\\{CURR_SEASON}Main.csv'
+CURR_SEASON = 'Spring25'
+CURR_SEASON_MAIN_FILE = f'Spring25\\{CURR_SEASON}Main.csv'
 INPUT_FILE = 'input.csv'
 
 print(f"Options for the program currently are: \n\tStats\n\tGraph\n\tReadWeek\n\tWriteResults\n\tquit\n\tAddMainData\n")
