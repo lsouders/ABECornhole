@@ -126,3 +126,49 @@ class Data:
         
         results_df = pd.DataFrame(data=stats, index=[0])
         print(results_df)
+
+    def get_rounds(season='all'):
+        df, _ = Data.getData()
+        if season != 'all':
+            tmp = df[df['Season'] == season]
+            df = tmp
+        rounds = df.groupby('PlayerName')['Rounds'].sum().to_frame()
+        rounds.sort_values('Rounds', ascending=False, inplace=True)
+        print(rounds)
+
+    def get_bags_in(season='all'):
+        df, _ = Data.getData()
+        if season != 'all':
+            tmp = df[df['Season'] == season]
+            df  = tmp
+        first5 = df[(df['Week'] >= 1) & (df['Week'] <= 5)]
+        last5  = df[(df['Week'] >= 6) & (df['Week'] <= 10)]
+
+        first5_bags_in = first5.groupby('PlayerName')['In Count'].sum().to_frame()
+        first5_bags_in.rename(columns={'In Count': 'First 5'}, inplace=True)
+        last5_bags_in  = last5.groupby('PlayerName')['In Count'].sum().to_frame()
+        last5_bags_in.rename(columns={'In Count': 'Last 5'}, inplace=True)
+
+        df = pd.merge(first5_bags_in, last5_bags_in, on='PlayerName', how='inner')
+        print(df)
+
+    def get_bags_off(season='all'):
+        df, _ = Data.getData()
+        if season != 'all':
+            tmp = df[df['Season'] == season]
+            df  = tmp
+        first5 = df[(df['Week'] >= 1) & (df['Week'] <= 5)]
+        last5  = df[(df['Week'] >= 6) & (df['Week'] <= 10)]
+
+        first5_bags_off = first5.groupby('PlayerName')['Off Count'].sum().to_frame()
+        first5_bags_off.rename(columns={'Off Count': 'First 5'}, inplace=True)
+        last5_bags_off  = last5.groupby('PlayerName')['Off Count'].sum().to_frame()
+        last5_bags_off.rename(columns={'Off Count': 'Last 5'}, inplace=True)
+
+        df = pd.merge(first5_bags_off, last5_bags_off, on='PlayerName', how='inner')
+        print(df)
+
+
+# Data.get_rounds('Winter25')
+# Data.get_bags_in('Winter25')
+Data.get_bags_off('Winter25')
