@@ -126,3 +126,9 @@ class Data:
         
         results_df = pd.DataFrame(data=stats, index=[0])
         print(results_df)
+
+    def clear_season(season):
+        filename = '{season}\\{season}Main.csv'
+        df = pd.read_csv(filename)
+        df.loc[:, 'Best 5 Weeks Avg':] = 0
+        df.to_csv(filename, index=False)

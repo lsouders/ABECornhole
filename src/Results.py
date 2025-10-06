@@ -10,7 +10,7 @@ from reportlab.lib import colors
 from reportlab.pdfgen import canvas
 from reportlab.lib.utils import ImageReader
 
-SEASON = 'Spring25'
+SEASON = 'Fall25'
 MAIN_SEASON_FILE = f'{SEASON}\\{SEASON}Main.csv'
 INPUT_FILE = 'input.csv'
 LOGO = 'images\\logo.png'
