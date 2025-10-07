@@ -1,0 +1,43 @@
+body {
+    font-family: Arial, sans-serif;
+    align-items: center;
+}
+table {
+    /* background-color: rgba(255, 255, 255, 0.5);
+    background-image: url('../images/logo.png');
+    background-repeat: no-repeat;
+    background-size: cover; */
+    
+    border-collapse: collapse;
+    border: 1px solid #ccc;
+    text-align: center;
+    position: relative;
+    border: 0.5;
+}
+th, td {
+    padding: 5px;
+    border: 1px solid #ccc;
+    position: relative;
+    font-weight: bold;
+}
+th {
+    background-color: #f4f4f4;
+    font-size: large;
+}
+table:after {
+    content: "";
+    background: url('../images/logo.jpg');
+    background-repeat: no-repeat;
+    /* background-size: contain;  */
+    background-size: 100% 100%;
+    opacity: 0.25; /* set your opacity */
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;   
+  }
+  h1 {
+    text-align: center;
+  }
