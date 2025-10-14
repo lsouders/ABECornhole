@@ -43,7 +43,7 @@ class Results:
             <link rel="stylesheet" href="style.css">
         </head>
         <body>
-            <h1>Spring 2025</h1>
+            <h1>Fall 2025</h1>
             {html_table}
         </body>
         </html>
