@@ -23,6 +23,7 @@ class Data:
         
         return df
     
+    
     # Export data to csv sheet
     @staticmethod
     def storeData(df, filename):
@@ -30,6 +31,7 @@ class Data:
         main = pd.concat([main, df], ignore_index=True)
         main.to_csv(f'data/{filename}', index=False)
 
+    
     # Throwaway: Code works as standalone, needs refactor to work as function
     def read_a_season():
         main = pd.read_csv('data/data_S24_W1.csv')
@@ -46,6 +48,7 @@ class Data:
         # print(main)
         Data.storeData(main, 'main.csv')
 
+    
     # Throwaway: Code works as standalone, needs refactor to work as function
     def read_playoffs():
         main1 = pd.read_csv('data/W24_W11_A.csv')
@@ -66,6 +69,7 @@ class Data:
         # print(main)
         Data.storeData(main, 'main.csv')
 
+    
     def read_data(filename, season, week, season_sort=4):
         df = pd.read_csv(filename)
         df = Data.cleanData(df)
@@ -74,6 +78,7 @@ class Data:
         df['Season Sort'] = season_sort
         Data.storeData(df, 'main.csv')
 
+    
     def graph(player_name, option='Player PPR', season='all'):
         df, _ = Data.getData()
         player_df = df[df['PlayerName'] == player_name]
@@ -90,6 +95,7 @@ class Data:
         plt.title(f'{player_name} {option} Stats for Season: {season}')
         plt.show()
 
+    
     def get_stats(player_name, season='all'):
         df, _ = Data.getData()
         player_df = df[df['PlayerName'] == player_name]
@@ -127,6 +133,7 @@ class Data:
         results_df = pd.DataFrame(data=stats, index=[0])
         print(results_df)
 
+    
     def get_rounds(season='all'):
         df, _ = Data.getData()
         if season != 'all':
@@ -136,37 +143,31 @@ class Data:
         rounds.sort_values('Rounds', ascending=False, inplace=True)
         print(rounds)
 
-    def get_bags_in(season='all'):
+    
+    def get_improvement(season='all'):
         df, _ = Data.getData()
         if season != 'all':
             tmp = df[df['Season'] == season]
             df  = tmp
+        df['Quality'] = 2 * df['In Percent'] + df['On Percent']
         first5 = df[(df['Week'] >= 1) & (df['Week'] <= 5)]
         last5  = df[(df['Week'] >= 6) & (df['Week'] <= 10)]
 
-        first5_bags_in = first5.groupby('PlayerName')['In Count'].sum().to_frame()
-        first5_bags_in.rename(columns={'In Count': 'First 5'}, inplace=True)
-        last5_bags_in  = last5.groupby('PlayerName')['In Count'].sum().to_frame()
-        last5_bags_in.rename(columns={'In Count': 'Last 5'}, inplace=True)
+        first5_filtered = first5[first5.groupby('PlayerName')['PlayerName'].transform('count') >= 3]
+        first5_quality = first5_filtered.groupby('PlayerName')['Quality'].mean().to_frame()
+        first5_quality.rename(columns={'Quality': 'First 5 Quality'}, inplace=True)
 
-        df = pd.merge(first5_bags_in, last5_bags_in, on='PlayerName', how='inner')
+        last5_filtered = last5[last5.groupby('PlayerName')['PlayerName'].transform('count') >= 3]
+        last5_quality  = last5_filtered.groupby('PlayerName')['Quality'].mean().to_frame()
+        last5_quality.rename(columns={'Quality': 'Last 5 Quality'}, inplace=True)
+
+        df = pd.merge(first5_quality, last5_quality, on='PlayerName', how='inner')
+
+        df['Improvement'] = df['Last 5 Quality'] - df['First 5 Quality']
+        df.sort_values(by='Improvement', ascending=False, inplace=True)
+
         print(df)
-
-    def get_bags_off(season='all'):
-        df, _ = Data.getData()
-        if season != 'all':
-            tmp = df[df['Season'] == season]
-            df  = tmp
-        first5 = df[(df['Week'] >= 1) & (df['Week'] <= 5)]
-        last5  = df[(df['Week'] >= 6) & (df['Week'] <= 10)]
-
-        first5_bags_off = first5.groupby('PlayerName')['Off Count'].sum().to_frame()
-        first5_bags_off.rename(columns={'Off Count': 'First 5'}, inplace=True)
-        last5_bags_off  = last5.groupby('PlayerName')['Off Count'].sum().to_frame()
-        last5_bags_off.rename(columns={'Off Count': 'Last 5'}, inplace=True)
-
-        df = pd.merge(first5_bags_off, last5_bags_off, on='PlayerName', how='inner')
-        print(df)
+    
 
     def clear_season(season):
         filename = '{season}\\{season}Main.csv'
@@ -175,5 +176,4 @@ class Data:
         df.to_csv(filename, index=False)
 
 # Data.get_rounds('Winter25')
-# Data.get_bags_in('Winter25')
-# Data.get_bags_off('Winter25')
+# Data.get_improvement('Fall25')
