@@ -188,19 +188,19 @@ class Results:
 
 
 # Test code to test new ranking system (Wins Total 5 Weeks/Best 5 Avg)
-main = pd.read_csv('Test\\main.csv')
+# main = pd.read_csv('Test\\main.csv')
 
-# Read 10 Weeks of input files
-for i in range(1, 11):
-    input_df = pd.read_csv(f'Test\\input_{i}.csv')
-    results, _ = Results.get_new_results(main, input_df)
+# # Read 10 Weeks of input files
+# for i in range(1, 11):
+#     input_df = pd.read_csv(f'Test\\input_{i}.csv')
+#     results, _ = Results.get_new_results(main, input_df)
 
-    # Update main df
-    main = results
+#     # Update main df
+#     main = results
 
-main.reset_index(drop=True, inplace=True)
-main.index += 1
-Results.create_html(main, 'Test\\results')
+# main.reset_index(drop=True, inplace=True)
+# main.index += 1
+# Results.create_html(main, 'Test\\results')
 # print(main.head())
 
 # Test set for weekly data decomposition
