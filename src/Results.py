@@ -2,6 +2,7 @@
 # export the results.
 
 import pandas as pd
+import config
 from Alias import Alias
 from Players import Players
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, PageBreak
@@ -10,7 +11,7 @@ from reportlab.lib import colors
 from reportlab.pdfgen import canvas
 from reportlab.lib.utils import ImageReader
 
-SEASON = 'Fall25'
+SEASON = config.CURR_SEASON
 MAIN_SEASON_FILE = f'{SEASON}\\{SEASON}Main.csv'
 INPUT_FILE = 'input.csv'
 LOGO = 'images\\logo.png'
@@ -209,3 +210,5 @@ class Results:
 # wins   = [ int(str(item).split('-')[1]) if (len(str(item).split('-')) == 2) else 0 for item in data]
 # print(f'wins: \n{wins}')
 # print(f'points: \n{points}')
+
+print(SEASON) 

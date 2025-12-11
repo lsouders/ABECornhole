@@ -141,7 +141,6 @@ class Data:
             df = tmp
         rounds = df.groupby('PlayerName')['Rounds'].sum().to_frame()
         rounds.sort_values('Rounds', ascending=False, inplace=True)
-        print(rounds)
 
     
     def get_improvement(season='all'):
@@ -149,7 +148,8 @@ class Data:
         if season != 'all':
             tmp = df[df['Season'] == season]
             df  = tmp
-        df['Quality'] = 2 * df['In Percent'] + df['On Percent']
+        # df['Quality'] = 2 * df['In Percent'] + df['On Percent']
+        df['Quality'] = df['Off Percent']
         first5 = df[(df['Week'] >= 1) & (df['Week'] <= 5)]
         last5  = df[(df['Week'] >= 6) & (df['Week'] <= 10)]
 
@@ -163,17 +163,21 @@ class Data:
 
         df = pd.merge(first5_quality, last5_quality, on='PlayerName', how='inner')
 
-        df['Improvement'] = df['Last 5 Quality'] - df['First 5 Quality']
+        df['Improvement'] = df['First 5 Quality'] - df['Last 5 Quality']
         df.sort_values(by='Improvement', ascending=False, inplace=True)
 
         print(df)
     
 
+    def build_season_master(season, append_file):
+        master_df = pd.read_csv(f'{season}\\master.csv')
+        append_df = pd.read_csv(f'{append_file}')
+        result = pd.concat([master_df, append_df], ignore_index=True)
+        pd.to_csv(f'{season}\\master.csv')
+
+
     def clear_season(season):
-        filename = '{season}\\{season}Main.csv'
+        filename = f'{season}\\{season}Main.csv'
         df = pd.read_csv(filename)
         df.loc[:, 'Best 5 Weeks Avg':] = 0
         df.to_csv(filename, index=False)
-
-# Data.get_rounds('Winter25')
-# Data.get_improvement('Fall25')
