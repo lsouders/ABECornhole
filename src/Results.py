@@ -77,12 +77,21 @@ class Results:
         if weeks_attended == 0: return 0, 0 
         points = [int(str(item).split('-')[0].strip()) for item in data]
         wins   = [int(str(item).split('-')[1].strip()) if (len(str(item).split('-')) == 2) else 0 for item in data]
-        points.sort(reverse=True)
+        points.sort(reverse=False)
         wins.sort(reverse=True)
-        best5_avg = round(sum(points[:5]) / 5, 1 ) if weeks_attended >= 5 else round( sum(points) / weeks_attended, 1)
+        pts_avg = round(sum(points[:5]) / 5, 1 ) if weeks_attended >= 5 else round( sum(points) / weeks_attended, 1)
         wins_avg  = round(sum(wins[:5]) / 5, 1) if weeks_attended >= 5 else round(sum(wins) / weeks_attended, 1)
-        return wins_avg, best5_avg
+        return wins_avg, pts_avg
     
+
+    @staticmethod
+    def add_player_to_df(player: str, dataframe: pd.DataFrame):
+        new_player = {'Player' : player}
+        for col in dataframe.columns:
+            if col != 'Player':
+                new_player[col] = 0
+        df = pd.concat([dataframe, pd.DataFrame([new_player])], ignore_index=True)
+        return df
 
     @staticmethod
     def get_results(main: pd.DataFrame, input_df: pd.DataFrame):
@@ -106,6 +115,9 @@ class Results:
             # Ensure that the player exists in the main file. If not, notify the console
             if not (main['Player'] == name).any():
                 print(f"Player '{name}' does not exist in the main file!")
+                decision = input(f'Input player into main file? \n\t(\'N\' for no, enter their name otherwise):')
+                if decision != 'N':
+                    main = Results.add_player_to_df(decision, main)
             main.loc[main['Player'] == name, week] = points
             main.loc[main['Player'] == name, 'Weeks Attended'] += 1
         # Get results for the player
@@ -136,7 +148,7 @@ class Results:
                     name = Players.get_player_by_index(a_ind)
             else: name = player
             # Have name, now update main sheet with info from the week
-            points = input_df.loc[input_df['Team Name'] == player, 'Points For'].iloc[0]
+            points = input_df.loc[input_df['Team Name'] == player, 'Points Against'].iloc[0]
             wins   = input_df.loc[input_df['Team Name'] == player, 'Wins'].iloc[0]
             data_point = f'{points} - {wins}'
             # Ensure that the player exists in the main file. If not, notify the console
@@ -150,8 +162,8 @@ class Results:
             weeks_attended = int( main.loc[main['Player'] == name, 'Weeks Attended'].values[0] )
             wins_avg, best5_avg = Results.get_wins_averages(data, weeks_attended)
             main.loc[main['Player'] == name, 'Wins'] = wins_avg
-            main.loc[main['Player'] == name, 'Best 5 Weeks Avg'] = best5_avg
-        main.sort_values(by=['Wins', 'Best 5 Weeks Avg'], inplace=True, ascending=False)
+            main.loc[main['Player'] == name, 'Pointa Against'] = best5_avg
+        main.sort_values(by=['Wins', 'Points Against'], inplace=True, ascending=[False, True])
         return main, week_num
 
     # Take df input to write out to results file
@@ -172,7 +184,7 @@ class Results:
     @staticmethod
     def update_results(inp_file: str):
         main, input = Results.read_files(inp_file)
-        results, week_num = Results.get_results(main, input)
+        results, week_num = Results.get_new_results(main, input)
         Results.write_results(results, f'{SEASON}\\Week{week_num}Results.xlsx') # xlsx for upload to google drive. Will delete after season
         Results.write_results(results, f'{SEASON}\\Week{week_num}Results.csv')  # csv for data wrangling (application uses csv)
         Results.create_html(results, f'{SEASON}\\Week{week_num}Results')

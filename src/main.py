@@ -2,10 +2,11 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from Data import Data as D
 from Results import Results as R
+import config
 
 # Define Constants
-CURR_SEASON = 'Fall25'
-CURR_SEASON_MAIN_FILE = f'{CURR_SEASON}\\{CURR_SEASON}Main.csv'
+CURR_SEASON = config.CURR_SEASON
+CURR_SEASON_MAIN_FILE = config.CURR_SEASON_MAIN_FILE
 INPUT_FILE = 'input.csv'
 
 def get_curr_season():
