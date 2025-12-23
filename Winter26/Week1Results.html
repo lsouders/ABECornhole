@@ -1,0 +1,785 @@
+
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>DataFrame Overlay</title>
+            <link rel="stylesheet" href="../style.css">
+        </head>
+        <body>
+            <h1>Fall 2025</h1>
+            <table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Player</th>
+      <th>Wins</th>
+      <th>Points Against</th>
+      <th>Weeks Attended</th>
+      <th>Week 1</th>
+      <th>Week 2</th>
+      <th>Week 3</th>
+      <th>Week 4</th>
+      <th>Week 5</th>
+      <th>Week 6</th>
+      <th>Week 7</th>
+      <th>Week 8</th>
+      <th>Week 9</th>
+      <th>Week 10</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>Freddie</td>
+      <td>8.0</td>
+      <td>58.0</td>
+      <td>1</td>
+      <td>8 - 58</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Scotty</td>
+      <td>7.0</td>
+      <td>73.0</td>
+      <td>1</td>
+      <td>7 - 73</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>RJ</td>
+      <td>7.0</td>
+      <td>88.0</td>
+      <td>1</td>
+      <td>7 - 88</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Adam</td>
+      <td>6.0</td>
+      <td>100.0</td>
+      <td>1</td>
+      <td>6 - 100</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Karen</td>
+      <td>6.0</td>
+      <td>108.0</td>
+      <td>1</td>
+      <td>6 - 108</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Rich G</td>
+      <td>6.0</td>
+      <td>113.0</td>
+      <td>1</td>
+      <td>6 - 113</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Jayden</td>
+      <td>5.0</td>
+      <td>104.0</td>
+      <td>1</td>
+      <td>5 - 104</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Andy R</td>
+      <td>5.0</td>
+      <td>110.0</td>
+      <td>1</td>
+      <td>5 - 110</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Swag</td>
+      <td>5.0</td>
+      <td>112.0</td>
+      <td>1</td>
+      <td>5 - 112</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Kenny</td>
+      <td>5.0</td>
+      <td>114.0</td>
+      <td>1</td>
+      <td>5 - 114</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>Dr. Flash</td>
+      <td>5.0</td>
+      <td>129.0</td>
+      <td>1</td>
+      <td>5 - 129</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>Kevin B</td>
+      <td>5.0</td>
+      <td>131.0</td>
+      <td>1</td>
+      <td>5 - 131</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>Nichole</td>
+      <td>5.0</td>
+      <td>145.0</td>
+      <td>1</td>
+      <td>5 - 145</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>Jared K</td>
+      <td>4.0</td>
+      <td>96.0</td>
+      <td>1</td>
+      <td>4 - 96</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>Eggman</td>
+      <td>4.0</td>
+      <td>117.0</td>
+      <td>1</td>
+      <td>4 - 117</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>Eric S</td>
+      <td>4.0</td>
+      <td>133.0</td>
+      <td>1</td>
+      <td>4 - 133</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>Jason G</td>
+      <td>4.0</td>
+      <td>134.0</td>
+      <td>1</td>
+      <td>4 - 134</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>Allen</td>
+      <td>4.0</td>
+      <td>136.0</td>
+      <td>1</td>
+      <td>4 - 136</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>Hank</td>
+      <td>4.0</td>
+      <td>137.0</td>
+      <td>1</td>
+      <td>4 - 137</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>Carl R</td>
+      <td>4.0</td>
+      <td>142.0</td>
+      <td>1</td>
+      <td>4 - 142</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>Big Ben</td>
+      <td>3.0</td>
+      <td>127.0</td>
+      <td>1</td>
+      <td>3 - 127</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>Mike D</td>
+      <td>3.0</td>
+      <td>130.0</td>
+      <td>1</td>
+      <td>3 - 130</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>Jonathan</td>
+      <td>3.0</td>
+      <td>131.0</td>
+      <td>1</td>
+      <td>3 - 131</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>Lauren</td>
+      <td>3.0</td>
+      <td>135.0</td>
+      <td>1</td>
+      <td>3 - 135</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>Richard A</td>
+      <td>3.0</td>
+      <td>151.0</td>
+      <td>1</td>
+      <td>3 - 151</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>Patrick</td>
+      <td>2.0</td>
+      <td>147.0</td>
+      <td>1</td>
+      <td>2 - 147</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>Frank</td>
+      <td>2.0</td>
+      <td>147.0</td>
+      <td>1</td>
+      <td>2 - 147</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>Matty Ice</td>
+      <td>2.0</td>
+      <td>149.0</td>
+      <td>1</td>
+      <td>2 - 149</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>Johnny K</td>
+      <td>2.0</td>
+      <td>153.0</td>
+      <td>1</td>
+      <td>2 - 153</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>Amy</td>
+      <td>2.0</td>
+      <td>154.0</td>
+      <td>1</td>
+      <td>2 - 154</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>Alex L</td>
+      <td>2.0</td>
+      <td>157.0</td>
+      <td>1</td>
+      <td>2 - 157</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>Butch B</td>
+      <td>2.0</td>
+      <td>159.0</td>
+      <td>1</td>
+      <td>2 - 159</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>Fernando</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>Jason K</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>Greg C</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>Blake</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>Lucky</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>Will M</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>Will S</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>Kish</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>Kip</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>42</th>
+      <td>Hammer</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>Erik T</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>44</th>
+      <td>Rick R</td>
+      <td>0.0</td>
+      <td>168.0</td>
+      <td>1</td>
+      <td>0 - 168</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+        </body>
+        </html>
+        

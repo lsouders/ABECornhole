@@ -75,8 +75,8 @@ class Results:
     @staticmethod
     def get_wins_averages(data: list, weeks_attended: int) -> tuple[int, int]:
         if weeks_attended == 0: return 0, 0 
-        points = [int(str(item).split('-')[0].strip()) for item in data]
-        wins   = [int(str(item).split('-')[1].strip()) if (len(str(item).split('-')) == 2) else 0 for item in data]
+        wins   = [int(str(item).split('-')[0].strip()) for item in data]
+        points = [int(str(item).split('-')[1].strip()) if (len(str(item).split('-')) == 2) else 0 for item in data]
         points.sort(reverse=False)
         wins.sort(reverse=True)
         pts_avg = round(sum(points[:5]) / 5, 1 ) if weeks_attended >= 5 else round( sum(points) / weeks_attended, 1)
@@ -150,7 +150,7 @@ class Results:
             # Have name, now update main sheet with info from the week
             points = input_df.loc[input_df['Team Name'] == player, 'Points Against'].iloc[0]
             wins   = input_df.loc[input_df['Team Name'] == player, 'Wins'].iloc[0]
-            data_point = f'{points} - {wins}'
+            data_point = f'{wins} - {points}'
             # Ensure that the player exists in the main file. If not, notify the console
             if not (main['Player'] == name).any():
                 print(f"Player '{name}' does not exist in the main file!")
@@ -162,7 +162,7 @@ class Results:
             weeks_attended = int( main.loc[main['Player'] == name, 'Weeks Attended'].values[0] )
             wins_avg, best5_avg = Results.get_wins_averages(data, weeks_attended)
             main.loc[main['Player'] == name, 'Wins'] = wins_avg
-            main.loc[main['Player'] == name, 'Pointa Against'] = best5_avg
+            main.loc[main['Player'] == name, 'Points Against'] = best5_avg
         main.sort_values(by=['Wins', 'Points Against'], inplace=True, ascending=[False, True])
         return main, week_num
 
