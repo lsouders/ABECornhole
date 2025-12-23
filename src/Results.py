@@ -163,7 +163,11 @@ class Results:
             wins_avg, best5_avg = Results.get_wins_averages(data, weeks_attended)
             main.loc[main['Player'] == name, 'Wins'] = wins_avg
             main.loc[main['Player'] == name, 'Points Against'] = best5_avg
-        main.sort_values(by=['Wins', 'Points Against'], inplace=True, ascending=[False, True])
+        # Need to check if players have showed up at all to avoid sorting edge case where players with
+        # no weeks attended are ranked higher than players with no wins and nonzero points
+        main['has_played'] = main['Weeks Attended'] > 0
+        main.sort_values(by=['has_played', 'Wins', 'Points Against'], inplace=True, ascending=[False, False, True])
+        main.drop(columns=['has_played'], inplace=True)
         return main, week_num
 
     # Take df input to write out to results file
@@ -195,7 +199,7 @@ class Results:
 #=======================================
 # CODE TO RESET MAIN FILE
 # main = pd.read_csv(MAIN_SEASON_FILE)
-# main.loc[:, 'Best 5 Weeks Avg' : 'Week 10'] = 0
+# main.loc[:, 'Wins' : 'Week 10'] = 0
 # main.to_csv(MAIN_SEASON_FILE, index=False)
 #=======================================
 
@@ -222,5 +226,3 @@ class Results:
 # wins   = [ int(str(item).split('-')[1]) if (len(str(item).split('-')) == 2) else 0 for item in data]
 # print(f'wins: \n{wins}')
 # print(f'points: \n{points}')
-
-print(SEASON) 
