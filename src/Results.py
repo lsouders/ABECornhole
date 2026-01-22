@@ -1,4 +1,4 @@
-# Read in results from a week during a season. Combine with main sheet for that season and 
+# Read in results from a week during a season. Combine with main sheet for that season and
 # export the results.
 
 import pandas as pd
@@ -28,7 +28,7 @@ class Results:
         # Export DataFrame to HTML
         # reformat indexing to give current 'place' people are in
         df.reset_index(inplace=True, drop=True)
-        df.index += 1 
+        df.index += 1
         html_table = df.to_html()  # Export DataFrame without index
 
         # Background image file path
@@ -62,28 +62,29 @@ class Results:
         inp = pd.read_csv(inp_name)
         inp.fillna(0, inplace=True)
         return df, inp
-    
+
 
     @staticmethod
     def get_averages(data: list, weeks_attended: int) -> tuple[int, int]:
-        if weeks_attended == 0: return 0, 0 
+        if weeks_attended == 0: return 0, 0
         data.sort(reverse=True)
         weekly_avg = round( sum(data) / weeks_attended, 1)
         best5_avg = round( sum(data[:5]) / 5, 1 ) if weeks_attended >= 5 else round( sum(data) / weeks_attended, 1)
         return weekly_avg, best5_avg
-    
+
 
     @staticmethod
     def get_wins_averages(data: list, weeks_attended: int) -> tuple[int, int]:
-        if weeks_attended == 0: return 0, 0 
+        if weeks_attended == 0: return 0, 0
         wins   = [int(str(item).split('-')[0].strip()) for item in data]
-        points = [int(str(item).split('-')[1].strip()) if (len(str(item).split('-')) == 2) else 0 for item in data]
+        points = [int(str(item).split('-')[1].strip()) for item in data if (len(str(item).split('-')) == 2)]
         points.sort(reverse=False)
         wins.sort(reverse=True)
-        pts_avg = round(sum(points[:5]) / 5, 1 ) if weeks_attended >= 5 else round( sum(points) / weeks_attended, 1)
+        pts_avg = round(sum(points[:5]) / 5, 1) if weeks_attended >= 5 else round(sum(points) / weeks_attended, 1)
         wins_avg  = round(sum(wins[:5]) / 5, 1) if weeks_attended >= 5 else round(sum(wins) / weeks_attended, 1)
+        print(points)
         return wins_avg, pts_avg
-    
+
 
     @staticmethod
     def add_player_to_df(player: str, dataframe: pd.DataFrame):
@@ -130,7 +131,7 @@ class Results:
             main.loc[main['Player'] == name, 'Best 5 Weeks Avg'] = best5_avg
         main.sort_values(by=['Best 5 Weeks Avg', 'Weekly Avg'], inplace=True, ascending=False)
         return main, week_num
-    
+
     @staticmethod
     def get_new_results(main: pd.DataFrame, input_df: pd.DataFrame):
         week_num = main['Weeks Attended'].max() + 1
@@ -175,15 +176,15 @@ class Results:
     @staticmethod
     def write_results(df: pd.DataFrame, filename: str):
         df.to_csv(filename, index=False)
-        return 
-    
+        return
+
 
     # Write out the verified results to the main file
     @staticmethod
     def write_results_to_main(filename: str):
         results = pd.read_csv(filename)
         Results.write_results(results, MAIN_SEASON_FILE)
-    
+
 
     # Main method for updating results for a week
     @staticmethod
