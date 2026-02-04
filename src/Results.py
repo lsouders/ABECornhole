@@ -82,7 +82,6 @@ class Results:
         wins.sort(reverse=True)
         pts_avg = round(sum(points[:5]) / 5, 1) if weeks_attended >= 5 else round(sum(points) / weeks_attended, 1)
         wins_avg  = round(sum(wins[:5]) / 5, 1) if weeks_attended >= 5 else round(sum(wins) / weeks_attended, 1)
-        print(points)
         return wins_avg, pts_avg
 
 
