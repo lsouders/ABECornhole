@@ -199,9 +199,9 @@ class Results:
 
 #=======================================
 # CODE TO RESET MAIN FILE
-main = pd.read_csv(MAIN_SEASON_FILE)
-main.loc[:, 'Wins' : 'Week 10'] = 0
-main.to_csv(MAIN_SEASON_FILE, index=False)
+# main = pd.read_csv(MAIN_SEASON_FILE)
+# main.loc[:, 'Wins' : 'Week 10'] = 0
+# main.to_csv(MAIN_SEASON_FILE, index=False)
 #=======================================
 
 
