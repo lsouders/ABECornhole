@@ -179,5 +179,5 @@ class Data:
     def clear_season(season):
         filename = f'{season}\\{season}Main.csv'
         df = pd.read_csv(filename)
-        df.loc[:, 'Best 5 Weeks Avg':] = 0
+        df.loc[:, 'Wins':] = 0
         df.to_csv(filename, index=False)
