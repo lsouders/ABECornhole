@@ -48,7 +48,7 @@ while True:
             filename = input('Filename of data to add: ')
             season = input('Season: ')
             week = input('Week: ')
-            D.read_data(filename, season, week, season_sort=4)
+            D.read_data(filename, season, week, season_sort=6)
         case 'GetSeasonImprovement':
             D.get_improvement(get_curr_season())
         case 'quit':

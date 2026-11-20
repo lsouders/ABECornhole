@@ -11,11 +11,25 @@ class Data:
         df = pd.read_csv(f'data/{filename}')
         return df, filename
     
-    def cleanData(df):
+    def cleanData(df: pd.DataFrame):
         # Basic cleansing
         df.dropna(axis=1, how='all', inplace=True)
-        df.drop(columns=['GameID', 'GameName', 'PlayerUser', 'PlayerEmail'], inplace=True)
+        df.drop(columns=['#', 'First Name', 'Last Name', 'Email', 'DPR', 'Game Name'], inplace=True)
         df = df.round(2)
+        df.rename(columns={
+            'Display Name': 'PlayerName',
+            'PPR': 'Player PPR',
+            'OPP PPR': 'Opponent PPR',
+            '4IN': '4In Count',
+            '4IN %': '4In Percent',
+            'IN': 'In Count',
+            'IN %': 'In Percent',
+            'ON': 'On Count',
+            'ON %': 'On Percent',
+            'OFF': 'Off Count',
+            'OFF %': 'Off Percent',
+            'Opp Points': 'Total Opp Points'
+        }, inplace=True)
 
         # Replace Alias names with true player names
         # call to alias class to do this for entire working df (not on main df)
@@ -181,3 +195,12 @@ class Data:
         df = pd.read_csv(filename)
         df.loc[:, 'Wins':] = 0
         df.to_csv(filename, index=False)
+
+    def get_season_ppr(season):
+        df, _ = Data.getData()
+        df_season = df[df['Season'] == season]
+        df_filtered = df_season[['PlayerName', 'Player PPR', 'Opponent PPR']]
+        df_ppr_avgs = df_filtered.groupby('PlayerName')[['Player PPR', 'Opponent PPR']].mean().round(2)
+        df_ppr_avgs.sort_values(by=['Player PPR', 'Opponent PPR'], ascending=False).to_excel(f'{season}_ppr.xlsx')
+
+Data.get_season_ppr('Fall26')
